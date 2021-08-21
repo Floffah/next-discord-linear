@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { createRouter } from "../util/trpccontext";
 import { TRPCError } from "@trpc/server";
-import { db } from "../db";
 import { nanoid } from "nanoid";
 
 export const endpointRouter = createRouter()
@@ -21,7 +20,7 @@ export const endpointRouter = createRouter()
             hookToken: z.string(),
         }),
         resolve: async (a) => {
-            const created = await db.endpoint.create({
+            const created = await a.ctx.db.endpoint.create({
                 data: {
                     id:
                         (a.input.id &&
@@ -41,6 +40,20 @@ export const endpointRouter = createRouter()
             };
         },
     })
+    .mutation("delete", {
+        input: z.object({
+            id: z.string(),
+        }),
+        resolve: async (a) => {
+            await a.ctx.db.endpoint.delete({
+                where: {
+                    id: a.input.id,
+                },
+            });
+
+            return true;
+        },
+    })
     .query("list", {
         input: z.object({
             limit: z.number().min(1).max(100).nullish(),
@@ -50,7 +63,7 @@ export const endpointRouter = createRouter()
             const limit = c.input.limit ?? 50;
             const cursor = c.input.cursor;
 
-            const endpoints = await db.endpoint.findMany({
+            const endpoints = await c.ctx.db.endpoint.findMany({
                 take: limit + 1,
                 cursor: cursor ? { id: cursor } : undefined,
                 orderBy: {

@@ -1,6 +1,7 @@
 import { CreateNextContextOptions } from "@trpc/server/dist/declarations/src/adapters/next";
 import { config } from "../config";
 import { inferAsyncReturnType, router, TRPCError } from "@trpc/server";
+import { db } from "../db";
 
 export async function createContext(c: CreateNextContextOptions) {
     if (
@@ -14,6 +15,7 @@ export async function createContext(c: CreateNextContextOptions) {
 
     return {
         authenticated: !!c.req.headers.authorization,
+        db,
     };
 }
 export type APIContext = inferAsyncReturnType<typeof createContext>;
