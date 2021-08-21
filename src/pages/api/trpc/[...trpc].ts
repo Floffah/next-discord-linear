@@ -1,23 +1,15 @@
-import { router } from "@trpc/server";
 import { createNextApiHandler } from "@trpc/server/adapters/next";
-import { webhooksRouter } from "../../../lib/api/queries/webhooks";
-import { config } from "../../../lib/api/config";
+import { endpointRouter } from "../../../lib/api/queries/endpoint";
+import { userRouter } from "../../../lib/api/queries/user";
+import { createContext, createRouter } from "../../../lib/api/util/trpccontext";
 
-const appRouter = router().merge("webhooks.", webhooksRouter);
+const appRouter = createRouter()
+    .merge("endpoint.", endpointRouter)
+    .merge("user.", userRouter);
 
 export type AppRouter = typeof appRouter;
 
 export default createNextApiHandler({
     router: appRouter,
-    createContext: async (c) => {
-        if (
-            !c.req.headers.AUTHORIZATION ||
-            c.req.headers.AUTHORIZATION !== config.admin_password
-        )
-            throw "Incorrect authentication";
-
-        return {
-            authenticated: true,
-        };
-    },
+    createContext,
 });

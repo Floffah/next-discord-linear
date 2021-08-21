@@ -15,9 +15,9 @@ export default async function getIssueData(
     embed.setTitle(
         (embed.title as string).replace(
             "Issue",
-            `Issue ${"team" in webhook.data ? webhook.data.team.key : "#"}${
-                webhook.data.number
-            }`,
+            `Issue ${
+                "team" in webhook.data ? webhook.data.team.key + "-" : "#"
+            }${webhook.data.number}`,
         ),
     );
 

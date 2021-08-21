@@ -12,7 +12,7 @@ module.exports = {
     purge: [
         "./src/pages/**/*.{js,ts,jsx,tsx}",
         "./src/components/**/*.{js,ts,jsx,tsx}",
-        // "./src/styles/**/*.{css,less,sass,scss}",
+        "./src/styles/**/*.{css,less,sass,scss}",
     ],
     theme: {
         extend: {
@@ -36,6 +36,7 @@ module.exports = {
                 0.25: "0.0625rem",
                 30: "7.5rem",
                 38: "9.5rem",
+                112: "28rem",
             },
             height: {
                 fit: "fit-content",

@@ -3,5 +3,5 @@ module.exports = {
     future: {
         modern: true,
     },
-    webpack5: true
+    webpack5: true,
 };
