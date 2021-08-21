@@ -1,0 +1,9 @@
+{
+    "admin_password": "you need to change this",
+    "linear_apikey": "linear api key, remove to disable",
+    "theme": {
+        "create": "#49aa19",
+        "update": "#5E6AD2",
+        "remove": "#d84a1b"
+    }
+}
