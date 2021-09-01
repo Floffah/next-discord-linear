@@ -15,6 +15,11 @@ be configured later)
 **! Make sure you have "Create private Git Repository" checked or you risk leaking admin 
 passwords**
 
+Make sure you also check the "Expose system environments" box or the admin area will not be able 
+to communicate back to the server (it wont know where it is). If this still gives you an 
+econnrefused error, define an environment variable called VERCEL_URL and set it to the domain, e.
+g. linearbridge.floffah.dev (no protocol or path)
+
 You will need to define the `DATABASE_URL` environment variable. This should be a postgres 
 database which you can get (completely free) from Heroku by doing the following:
 1. Open [heroku](https://www.heroku.com) and login
